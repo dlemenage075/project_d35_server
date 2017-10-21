@@ -1,21 +1,17 @@
 package fr.univtln.project.d35.server;
 
-import fr.jmallofre.crud.CrudServiceBean;
-import org.apache.log4j.PatternLayout;
-import org.glassfish.grizzly.http.server.HttpHandler;
+import com.sun.jersey.api.client.Client;
+import com.sun.jersey.api.client.WebResource;
+import com.sun.jersey.api.container.grizzly2.GrizzlyServerFactory;
+import com.sun.jersey.api.core.PackagesResourceConfig;
+import com.sun.jersey.api.core.ResourceConfig;
+import fr.univtln.project.d35.server.entities.Job;
+import fr.univtln.project.d35.server.entities.Profile;
+import fr.univtln.project.d35.server.resources.ProfileResource;
 import org.glassfish.grizzly.http.server.HttpServer;
-import org.glassfish.grizzly.http.server.ServerConfiguration;
-import org.glassfish.jersey.filter.LoggingFilter;
-import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpContainer;
-import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
-import org.glassfish.jersey.server.ContainerFactory;
-import org.glassfish.jersey.server.ResourceConfig;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.ws.rs.core.UriBuilder;
 import java.io.IOException;
-import java.lang.invoke.MethodHandles;
 import java.net.URI;
 
 /**
@@ -23,7 +19,8 @@ import java.net.URI;
  */
 public class App {
 
-    public static final int DEFAULT_PORT = 9998;
+    private static String hostname = "0.0.0.0";
+    private static int port = 9908;
 
     private static int getPort(int defaultPort) {
         //grab port from environment, otherwise fall back to default port 9998
@@ -37,76 +34,68 @@ public class App {
         return defaultPort;
     }
 
-
-    /*private static URI getBaseURI() {
-        return UriBuilder.fromUri("http://0.0.0.0/api/").port(getPort(DEFAULT_PORT)).build();
-    }*/
-
     private static URI getBaseURI(String hostname, int port) {
         return UriBuilder.fromUri("http://" + hostname + "/api/").port(port).build();
     }
 
     public static URI baseUri;
 
-    public static HttpServer startServer() throws IOException {
-        CrudServiceBean.PU_DB = "h2";
-        String hostname = System.getenv("HOSTNAME");
+    protected static HttpServer startServer() throws IOException {
 
-        if (hostname == null) {
-            hostname = "localhost";
-        }
+        if (System.getenv("HOSTNAME") != null)
+            hostname = System.getenv("HOSTNAME");
 
-        String port = System.getenv("PORT");
-        if (port == null) {
-            CrudServiceBean.PU_DB = CrudServiceBean.PU_DEFAULT;
-            port = String.valueOf(DEFAULT_PORT);
-        } else
-            hostname  = "0.0.0.0";
+        if (System.getenv("PORT") != null)
+            port = Integer.valueOf(System.getenv("PORT"));
 
-        baseUri =  getBaseURI(hostname, Integer.valueOf(port));
+        ResourceConfig resourceConfig = new PackagesResourceConfig("fr.univtln.project.d35.server");
 
+        baseUri =  getBaseURI(hostname, port);
 
-
-        ResourceConfig config = new ResourceConfig().packages("fr.univtln.pm12016g3.Server_VOT");
-        config.register(LoggingFilter.class);
-
-        HttpHandler handler = ContainerFactory.createContainer(GrizzlyHttpContainer.class, config);
-        HttpServer server = GrizzlyHttpServerFactory.createHttpServer(baseUri);
-        ServerConfiguration configuration = server.getServerConfiguration();
-        configuration.addHttpHandler(handler, "/");
-
-        return server;
-
+        System.out.println("Starting grizzly2...");
+        System.out.println( "BASE_URI : "+baseUri);
+        return GrizzlyServerFactory.createHttpServer(baseUri, resourceConfig);
     }
 
     public static void main(String[] args) throws IOException {
+
 
         // Grizzly 2 initialization
         HttpServer httpServer = startServer();
         System.out.println(String.format("Jersey app started with WADL available at "
                         + "%sapplication.wadl\nHit enter to stop it...",
-                baseUri));
+                getBaseURI(hostname, port)));
+
+        Client c = Client.create();
+        WebResource webResource = c.resource(baseUri);
 
 
 
-        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
-            System.out.println("Stopping server..");
+        Job job = new Job();
+        job.setName(Job.NAME.DEVELOPER);
+
+        Profile profile = new Profile();
+        profile.setName("Damien");
+        profile.setSurname("LEMÉNAGER");
+        profile.getJobs().add(job);
+
+        ProfileResource profileResource = new ProfileResource();
+        profileResource.insert(profile);
+
+
+        //Send a get with a String as response
+        /*String response0 = webResource.path("profile/my").get(String.class);
+        System.out.println(response0);*/
+
+        if ( System.getenv("PORT") == null ) {
+            System.in.read();
             httpServer.stop();
-        }, "shutdownHook"));
+        } else {
+            while (true) {
+                System.in.read();
+            }
+        }
 
-        //Quartz Timer initialization
-        //Runnable runnable =
 
-        // run
-        /*try {
-            //new Thread(runnable).start();
-            httpServer.start();
-
-            TimerQuartz.run();
-            System.out.println("Press CTRL^C to exit..");
-            Thread.currentThread().join();
-        } catch (Exception e) {
-            System.out.println(String.format("There was an error while starting Grizzly HTTP server.\n%s", e.getLocalizedMessage()));
-        }*/
     }
 }

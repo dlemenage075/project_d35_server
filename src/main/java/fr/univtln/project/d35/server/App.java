@@ -1,46 +1,45 @@
 package fr.univtln.project.d35.server;
 
-import com.sun.jersey.api.client.Client;
-import com.sun.jersey.api.client.WebResource;
 import com.sun.jersey.api.container.grizzly2.GrizzlyServerFactory;
 import com.sun.jersey.api.core.PackagesResourceConfig;
 import com.sun.jersey.api.core.ResourceConfig;
 import fr.univtln.project.d35.server.entities.Job;
 import fr.univtln.project.d35.server.entities.Profile;
+import fr.univtln.project.d35.server.resource.Resource;
 import fr.univtln.project.d35.server.resources.ProfileResource;
 import org.glassfish.grizzly.http.server.HttpServer;
 
 import javax.ws.rs.core.UriBuilder;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URI;
+import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Hello world!
  */
 public class App {
 
-    private static String hostname = "0.0.0.0";
-    private static int port = 9908;
-
-    private static int getPort(int defaultPort) {
-        //grab port from environment, otherwise fall back to default port 9998
-        String httpPort = System.getProperty("jersey.test.port");
-        if (null != httpPort) {
-            try {
-                return Integer.parseInt(httpPort);
-            } catch (NumberFormatException e) {
-            }
-        }
-        return defaultPort;
-    }
+    private static URI baseUri;
+    private static String hostname;
+    private static int port;
+    private static ResourceConfig resourceConfig;
+    private static final Logger LOG = Logger.getLogger(Resource.class.getName());
 
     private static URI getBaseURI(String hostname, int port) {
         return UriBuilder.fromUri("http://" + hostname + "/api/").port(port).build();
     }
 
-    public static URI baseUri;
+    private static void loadServerProperties() throws IOException {
+        // Retrieve properties
+        Properties properties = new Properties();
+        properties.load(new FileInputStream("src/main/resources/config.conf"));
 
-    protected static HttpServer startServer() throws IOException {
+        hostname = properties.getProperty("server.hostname");
+        port = Integer.parseInt(properties.getProperty("server.port"));
+
 
         if (System.getenv("HOSTNAME") != null)
             hostname = System.getenv("HOSTNAME");
@@ -48,28 +47,28 @@ public class App {
         if (System.getenv("PORT") != null)
             port = Integer.valueOf(System.getenv("PORT"));
 
-        ResourceConfig resourceConfig = new PackagesResourceConfig("fr.univtln.project.d35.server");
+        resourceConfig = new PackagesResourceConfig("fr.univtln.project.d35.server");
 
         baseUri =  getBaseURI(hostname, port);
+    }
 
-        System.out.println("Starting grizzly2...");
-        System.out.println( "BASE_URI : "+baseUri);
+    private static void displayInfo() {
+        LOG.log(Level.INFO,String.format("Jersey app started with WADL available at %sapplication.wadl\n", baseUri));
+        LOG.log(Level.INFO,"Starting grizzly2...");
+        LOG.log(Level.INFO,String.format("BASE_URI : %s ", baseUri));
+    }
+
+    protected static HttpServer startServer() throws IOException {
         return GrizzlyServerFactory.createHttpServer(baseUri, resourceConfig);
     }
 
     public static void main(String[] args) throws IOException {
 
+        loadServerProperties();
+        displayInfo();
 
         // Grizzly 2 initialization
         HttpServer httpServer = startServer();
-        System.out.println(String.format("Jersey app started with WADL available at "
-                        + "%sapplication.wadl\nHit enter to stop it...",
-                getBaseURI(hostname, port)));
-
-        Client c = Client.create();
-        WebResource webResource = c.resource(baseUri);
-
-
 
         Job job = new Job();
         job.setName(Job.NAME.DEVELOPER);
@@ -82,19 +81,16 @@ public class App {
         ProfileResource profileResource = new ProfileResource();
         profileResource.insert(profile);
 
-
-        //Send a get with a String as response
-        /*String response0 = webResource.path("profile/my").get(String.class);
-        System.out.println(response0);*/
-
+        LOG.warning("Press a key and then on 'Enter' to exit...");
         if ( System.getenv("PORT") == null ) {
             System.in.read();
             httpServer.stop();
         } else {
-            while (true) {
-                System.in.read();
-            }
+            System.in.read();
         }
+
+
+
 
 
     }

@@ -1,6 +1,7 @@
 package fr.univtln.project.d35.server.resources;
 
 import fr.univtln.project.d35.server.entities.Profile;
+import fr.univtln.project.d35.server.exception.ResourceException;
 import fr.univtln.project.d35.server.resource.Resource;
 import fr.univtln.project.d35.server.resource.Resoursable;
 
@@ -11,28 +12,14 @@ import javax.ws.rs.core.Response;
 public class ProfileResource extends Resource implements Resoursable<Profile>{
 
     @GET
-    @Path("go")
-    @Produces("text/plain")
-    public String gogogo() {
-        System.out.println("youhouuuuuuu");
-        return "youhouuu";
-    }
-
-    @GET
-    @Path("all")
-    public Response getProfile() {
-        return super.fetch(Profile.class);
-    }
-
-    @GET
     @Path("{id}")
-    public Response get(@PathParam("id") long l) {
-        return null;
+    public Response get(@PathParam("id") long l) throws ResourceException {
+        return super.get(Profile.class, l);
     }
 
     @GET
     public Response fetch() {
-        return null;
+        return super.fetch(Profile.class);
     }
 
     @Override
@@ -42,14 +29,14 @@ public class ProfileResource extends Resource implements Resoursable<Profile>{
 
     @PUT
     @Path("{id}")
-    public Response merge(Profile profile,@PathParam("id") long l) {
-        return null;
+    public Response merge(Profile profile,@PathParam("id") long l) throws ResourceException {
+        return super.update(profile, l);
     }
 
     @DELETE
     @Path("{id}")
-    public Response delete(@PathParam("id") long l) {
-        return null;
+    public Response delete(@PathParam("id") long l) throws ResourceException {
+        return super.delete(Profile.class, l);
     }
 
 

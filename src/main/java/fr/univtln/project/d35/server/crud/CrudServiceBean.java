@@ -16,10 +16,8 @@ public class CrudServiceBean {
     EntityManagerFactory entityManagerFactory;
     EntityManager em;
     EntityTransaction transaction;
-    public static final String PU_HEROKU = "heroku_postgres";
-    public static final String PU_DEFAULT = "postgres";
+    public static final String PU_H2 = "h2";
     public static final String PU_DOCKER_POSTGRES = "postgres";
-    public static String PU_DB = "";
 
     public CrudServiceBean() {
         this.setPersistenceUnit(PU_DOCKER_POSTGRES);

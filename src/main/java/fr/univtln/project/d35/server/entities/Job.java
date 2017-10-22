@@ -6,6 +6,9 @@ import lombok.Data;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 
 @Data @Entity
@@ -14,7 +17,10 @@ public class Job implements Serializable {
     @Id @GeneratedValue
     private int id;
 
-    private int salaire;
+    @Min(value = 0, message = "Your salary need to be a positif number")
+    private int salary;
+
+    @NotNull(message = "You need to choose a job name")
     private NAME name;
     public enum NAME {
         POLICEMAN,

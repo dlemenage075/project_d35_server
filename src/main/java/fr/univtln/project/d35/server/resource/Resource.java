@@ -4,25 +4,32 @@ import fr.univtln.project.d35.server.crud.CrudServiceBean;
 import fr.univtln.project.d35.server.exception.ResourceException;
 import fr.univtln.project.d35.server.response.RestResponse;
 
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
 import javax.ws.rs.core.Response;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class Resource {
-    public static CrudServiceBean crudService;
+
+    final Logger LOG = Logger.getLogger(Resource.class.getName());
+
+    private static CrudServiceBean crudService;
     public static final String APPLICATION_JSON = "application/json";
     public static final String APPLICATION_JSON_UTF8 = "application/json;charset=urf-8";
     public static final String APPLICATION_URLENCODED = "application/x-www-form-urlencoded";
-    public Class<?> entity;
 
     public Resource() {
         crudService = new CrudServiceBean(CrudServiceBean.PU_DOCKER_POSTGRES);
     }
 
     public Resource(CrudServiceBean crudService) {
-        crudService = crudService;
+        this.crudService = crudService;
     }
 
     public void setCrudService(CrudServiceBean crudServiceBean) {
@@ -51,18 +58,17 @@ public class Resource {
     }
 
     public <T> Response create(T t) {
-        /*ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
-        Validator validator = factory.getValidator();
-        Set<ConstraintViolation<T>> violations = validator.validate(t, new Class[0]);
-        Iterator var5 = violations.iterator();
 
-        while(var5.hasNext()) {
-            ConstraintViolation<T> violation = (ConstraintViolation)var5.next();
-            this.LOG.warning(violation.getMessage());
+        final ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+        final Validator validator = factory.getValidator();
+
+        Set<ConstraintViolation<T>> constraintViolations =
+                validator.validate( t );
+
+        for (ConstraintViolation<T> violation : constraintViolations) {
+            LOG.warning(violation.getMessage());
         }
 
-        System.out.println("violations : " + violations.equals((Object)null));
-        System.out.println("violations size : " + violations.size());*/
         RestResponse<T> response = new RestResponse();
         Response toReturn;
         if (t != null) {
@@ -71,8 +77,8 @@ public class Resource {
                 response.setData(crudService.create(t));
                 crudService.commit();
                 toReturn = response.throw201Created();
-            } catch (Exception var8) {
-                var8.printStackTrace();
+            } catch (Exception e) {
+                e.printStackTrace();
                 response.setErrorMessage("Conflict");
                 toReturn = response.throw409Conflict();
             }

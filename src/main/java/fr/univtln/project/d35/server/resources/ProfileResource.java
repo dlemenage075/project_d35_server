@@ -2,8 +2,6 @@ package fr.univtln.project.d35.server.resources;
 
 import fr.univtln.project.d35.server.entities.Profile;
 import fr.univtln.project.d35.server.exception.ResourceException;
-import fr.univtln.project.d35.server.resource.Resource;
-import fr.univtln.project.d35.server.resource.Resoursable;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.Response;

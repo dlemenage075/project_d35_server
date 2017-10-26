@@ -1,4 +1,4 @@
-package fr.univtln.project.d35.server.resource;
+package fr.univtln.project.d35.server.resources;
 
 import fr.univtln.project.d35.server.crud.CrudServiceBean;
 import fr.univtln.project.d35.server.exception.ResourceException;

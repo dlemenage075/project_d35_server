@@ -5,7 +5,7 @@ import com.sun.jersey.api.core.PackagesResourceConfig;
 import com.sun.jersey.api.core.ResourceConfig;
 import fr.univtln.project.d35.server.entities.Job;
 import fr.univtln.project.d35.server.entities.Profile;
-import fr.univtln.project.d35.server.resource.Resource;
+import fr.univtln.project.d35.server.resources.Resource;
 import fr.univtln.project.d35.server.resources.ProfileResource;
 import org.glassfish.grizzly.http.server.HttpServer;
 

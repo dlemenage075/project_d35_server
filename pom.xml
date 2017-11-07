@@ -44,14 +44,14 @@
     <!-- ADAPTER les coordonnées -->
     <groupId>fr.univtln.project.d35.server</groupId>
     <artifactId>server</artifactId>
-    <version>1.0-jmallofre_925-SNAPSHOT</version>
+    <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
     <!-- ADAPTER les coordonnées -->
 
     <!-- ADAPTER les métadonnées -->
-    <name>helloworld</name>
+    <name>server</name>
     <description />
-    <url>https://${github.account}.github.io/helloworld/</url>
+    <url>https://${github.account}.github.io/server/</url>
     <inceptionYear>2017</inceptionYear>
 
     <organization>

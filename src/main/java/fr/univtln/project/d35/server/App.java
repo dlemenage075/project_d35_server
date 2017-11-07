@@ -34,11 +34,13 @@ public class App {
 
     private static void loadServerProperties() throws IOException {
         // Retrieve properties
-        Properties properties = new Properties();
-        properties.load(new FileInputStream("src/main/resources/config.conf"));
+        /*Properties properties = new Properties();
+        properties.load(new FileInputStream("src/main/resources/config.conf"));*/
 
-        hostname = properties.getProperty("server.hostname");
-        port = Integer.parseInt(properties.getProperty("server.port"));
+        /*hostname = properties.getProperty("server.hostname");
+        port = Integer.parseInt(properties.getProperty("server.port"));*/
+        hostname = "0.0.0.0";
+        port = 9908;
 
 
         if (System.getenv("HOSTNAME") != null)

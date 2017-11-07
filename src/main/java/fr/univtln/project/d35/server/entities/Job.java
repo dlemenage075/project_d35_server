@@ -1,17 +1,19 @@
 package fr.univtln.project.d35.server.entities;
 
 
+
 import lombok.Data;
 
+import javax.ejb.Stateless;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import java.io.Serializable;
 
-@Data @Entity
+
+@Data @Entity @Stateless
 public class Job implements Serializable {
 
     @Id @GeneratedValue

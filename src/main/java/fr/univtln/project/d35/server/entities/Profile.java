@@ -1,7 +1,9 @@
 package fr.univtln.project.d35.server.entities;
 
+
 import lombok.Data;
 
+import javax.ejb.Stateless;
 import javax.persistence.*;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
@@ -10,10 +12,12 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-@Data @Entity
-public class Profile implements Serializable{
 
-    @Id @GeneratedValue
+@Data @Entity @Stateless
+public class Profile implements Serializable {
+
+    @Id
+    @GeneratedValue
     private int id;
 
     @NotNull(message = "Name is empty") @Size(max = 50, message = "Name cannot be greater than 50 characters")

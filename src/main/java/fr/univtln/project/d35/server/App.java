@@ -33,7 +33,7 @@ public class App {
     }
 
     private static void loadServerProperties() throws IOException {
-        // Retrieve properties
+
         /*Properties properties = new Properties();
         properties.load(new FileInputStream("src/main/resources/config.conf"));*/
 
@@ -51,13 +51,13 @@ public class App {
 
         resourceConfig = new PackagesResourceConfig("fr.univtln.project.d35.server");
 
-        baseUri =  getBaseURI(hostname, port);
+        baseUri = getBaseURI(hostname, port);
     }
 
     private static void displayInfo() {
-        LOG.log(Level.INFO,String.format("Jersey app started with WADL available at %sapplication.wadl\n", baseUri));
-        LOG.log(Level.INFO,"Starting grizzly2...");
-        LOG.log(Level.INFO,String.format("BASE_URI : %s ", baseUri));
+        LOG.log(Level.INFO, String.format("Jersey app started with WADL available at %sapplication.wadl\n", baseUri));
+        LOG.log(Level.INFO, "Starting grizzly2...");
+        LOG.log(Level.INFO, String.format("BASE_URI : %s ", baseUri));
     }
 
     protected static HttpServer startServer() throws IOException {
@@ -84,15 +84,12 @@ public class App {
         profileResource.insert(profile);
 
         LOG.warning("Press a key and then on 'Enter' to exit...");
-        if ( System.getenv("PORT") == null ) {
+        if (System.getenv("PORT") == null) {
             System.in.read();
             httpServer.stop();
         } else {
             System.in.read();
         }
-
-
-
 
 
     }

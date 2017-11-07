@@ -1,7 +1,10 @@
 package fr.univtln.project.d35.server.resources;
 
 import fr.univtln.project.d35.server.entities.Profile;
+
+
 import fr.univtln.project.d35.server.exception.ResourceException;
+
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
@@ -20,16 +23,17 @@ public class ProfileResource extends Resource implements Resoursable<Profile>{
         return super.fetch(Profile.class);
     }
 
-    @Override
+    @POST
     public Response insert(Profile profile) {
         return super.create(profile);
     }
 
     @PUT
     @Path("{id}")
-    public Response merge(Profile profile,@PathParam("id") long l) throws ResourceException {
-        return super.update(profile, l);
+    public Response merge(Profile profile, @PathParam("id") long l) throws ResourceException {
+        return super.update(profile,l);
     }
+
 
     @DELETE
     @Path("{id}")

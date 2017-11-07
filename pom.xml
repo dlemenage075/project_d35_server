@@ -5,14 +5,24 @@
     <properties>
         <!-- Le nom court du projet a utiliser pour github -->
         <projectShortName>D35</projectShortName>
-        <github.account>dlemenage075</github.account>
-        <!-- utln login for nexus (maven and docker ) repository on lsis -->
-        <lsisnexus.login>damien-lemenager@etud.univ-tln.fr</lsisnexus.login>
         <!-- the default Main class -->
         <app.main.class>fr.univtln.project.d35.server.App</app.main.class>
         <jersey-version>1.18.1</jersey-version>
     </properties>
     <!-- ADAPTER LES PROPRIETES SUIVANTES -->
+
+
+
+    <distributionManagement>
+
+            <repository>
+                <id>bintray-jmallofre-project_d35_server</id>
+                <name>bintray-D35_project_d35_server</name>
+                <url>https://api.bintray.com/maven/jmallofre/project_d35_server/server_sources/;publish=1</url>
+            </repository>
+
+
+    </distributionManagement>
 
     <repositories>
         <repository>
@@ -31,7 +41,7 @@
             </snapshots>
             <id>bintray-jmallofre</id>
             <name>bintray-plugins</name>
-            <url>https://dl.bintray.com/jmallofre</url>
+            <url>https://dl.bintray.com/jmallofre/project_d35_server</url>
         </pluginRepository>
     </pluginRepositories>
 
@@ -46,10 +56,10 @@
     <artifactId>server</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
-    <!-- ADAPTER les coordonnées -->
+
 
     <!-- ADAPTER les métadonnées -->
-    <name>server</name>
+    <name>D35_Server</name>
     <description />
     <url>https://${github.account}.github.io/server/</url>
     <inceptionYear>2017</inceptionYear>
@@ -150,24 +160,23 @@
                     <target>1.8</target>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.7</source>
+                    <target>1.7</target>
+                </configuration>
+            </plugin>
         </plugins>
     </build>-->
 
 
     <dependencies>
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-log4j12</artifactId>
-        </dependency>
 
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-api</artifactId>
-            <scope>test</scope>
-        </dependency>
 
         <!-- Only required to run tests in an IntelliJ IDEA that bundles an older version -->
-        <dependency>
+        <!--dependency>
             <groupId>org.junit.platform</groupId>
             <artifactId>junit-platform-launcher</artifactId>
             <scope>test</scope>
@@ -183,7 +192,8 @@
             <groupId>org.junit.vintage</groupId>
             <artifactId>junit-vintage-engine</artifactId>
             <scope>test</scope>
-        </dependency>
+        </dependency-->
+
 
 
         <!-- h2/jersey/jacksonspring/persistance-->
@@ -191,6 +201,9 @@
             <groupId>fr.jmallofre</groupId>
             <artifactId>RestToolsKit</artifactId>
             <version>1.0.2</version>
+
+        </dependency>
+
             <exclusions>
                 <exclusion>
                     <groupId>org.eclipse.persistence</groupId>
@@ -203,12 +216,14 @@
             </exclusions>
         </dependency>-->
 
+
         <!-- Lombok - Getter/Setter -->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>1.16.16</version>
             <scope>provided</scope>
+
         </dependency>
 
         <!-- Persistance -->
@@ -259,6 +274,15 @@
             <groupId>org.glassfish.web</groupId>
             <artifactId>javax.el</artifactId>
             <version>2.2.4</version>
+        </dependency>
+
+
+        <!-- https://mvnrepository.com/artifact/javax/javaee-api -->
+        <dependency>
+            <groupId>javax</groupId>
+            <artifactId>javaee-api</artifactId>
+            <version>7.0</version>
+            <scope>provided</scope>
         </dependency>
 
     </dependencies>

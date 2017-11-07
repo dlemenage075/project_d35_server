@@ -1,19 +1,21 @@
 package fr.univtln.project.d35.server.resources;
 
-
 import fr.univtln.project.d35.server.entities.Job;
 import fr.univtln.project.d35.server.exception.ResourceException;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
 
+
 @Path("/job")
 public class JobResource extends Resource implements Resoursable<Job>{
+
 
     @GET
     @Path("{id}")
     public Response get(@PathParam("id") long l) throws ResourceException {
         return super.get(Job.class, l);
+
     }
 
     @GET

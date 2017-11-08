@@ -25,7 +25,7 @@ public class Resource {
     public static final String APPLICATION_URLENCODED = "application/x-www-form-urlencoded";
 
     public Resource() {
-        crudService = new CrudServiceBean(CrudServiceBean.PU_DOCKER_POSTGRES);
+        crudService = new CrudServiceBean(CrudServiceBean.PU_LOCAL_POSTGRES);
     }
 
     public Resource(CrudServiceBean crudService) {

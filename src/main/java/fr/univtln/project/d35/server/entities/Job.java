@@ -13,7 +13,7 @@ import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 
-@Data @Entity @Stateless
+@Data @Entity
 public class Job implements Serializable {
 
     @Id @GeneratedValue

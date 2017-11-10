@@ -3,7 +3,7 @@ package fr.univtln.project.d35.server.entities;
 
 import lombok.Data;
 
-import javax.ejb.Stateless;
+
 import javax.persistence.*;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-@Data @Entity @Stateless
+@Data @Entity
 public class Profile implements Serializable {
 
     @Id

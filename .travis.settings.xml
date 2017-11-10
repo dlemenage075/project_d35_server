@@ -6,7 +6,7 @@
         <server>
             <id>bintray-jmallofre</id>
             <username>jmallofre</username>
-            <password>b28bcdc91aadd8576d04e4a1c00c57e711fcf230</password>
+            <password>${env.BINTRAY_API_KEY}</password>
         </server>
 
         <!--server>
@@ -29,7 +29,7 @@
             <properties>
                 <sonar.host.url>https://sonar.lsis.univ-tln.fr</sonar.host.url>
                 <!-- generate a token in https://sonar.lsis.univ-tln.fr/account/security -->
-                <sonar.login>33695d5bef6d4118b4138f90ab5ea07887f39bd4</sonar.login>
+                <sonar.login>${env.SONAR_TOKEN}</sonar.login>
             </properties>
         </profile>
         <profile>

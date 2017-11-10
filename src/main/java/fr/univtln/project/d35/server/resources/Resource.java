@@ -4,6 +4,8 @@ import fr.univtln.project.d35.server.crud.CrudServiceBean;
 import fr.univtln.project.d35.server.exception.ResourceException;
 import fr.univtln.project.d35.server.response.RestResponse;
 
+import javax.ejb.Stateless;
+import javax.inject.Inject;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
@@ -15,9 +17,11 @@ import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class Resource {
+@Stateless
+public abstract class Resource {
 
     final Logger LOG = Logger.getLogger(Resource.class.getName());
+
 
     private static CrudServiceBean crudService;
     public static final String APPLICATION_JSON = "application/json";

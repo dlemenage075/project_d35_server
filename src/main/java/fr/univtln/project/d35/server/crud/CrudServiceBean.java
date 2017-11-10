@@ -17,7 +17,8 @@ public class CrudServiceBean {
     EntityManager em;
     EntityTransaction transaction;
     public static final String PU_H2 = "h2";
-    public static final String PU_DOCKER_POSTGRES = "postgres";
+    public static final String PU_DOCKER_POSTGRES = "docker_postgres";
+    public static final String PU_LOCAL_POSTGRES = "local_postgres";
 
     public CrudServiceBean() {
         this.setPersistenceUnit(PU_DOCKER_POSTGRES);

@@ -70,4 +70,14 @@
         </properties>
     </persistence-unit>
 
+    <persistence-unit name="payara_postgres" transaction-type="JTA">
+        <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+        <jta-data-source>jdbc/postgres-pool</jta-data-source>
+
+        <class>fr.univtln.project.d35.server.entities.Job</class>
+        <!--        <class>fr.univtln.project.d35.server.entities.Job</class>
+                <class>fr.univtln.project.d35.server.entities.Profile</class>-->
+
+    </persistence-unit>
+
 </persistence>

@@ -4,7 +4,6 @@ package fr.univtln.project.d35.server.entities;
 
 import lombok.Data;
 
-import javax.ejb.Stateless;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;

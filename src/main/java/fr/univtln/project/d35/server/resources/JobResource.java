@@ -1,42 +1,65 @@
 package fr.univtln.project.d35.server.resources;
 
 import fr.univtln.project.d35.server.entities.Job;
-import fr.univtln.project.d35.server.exception.ResourceException;
 
+import javax.ejb.EJB;
+import javax.ejb.Stateless;
 import javax.ws.rs.*;
-import javax.ws.rs.core.Response;
-
+import java.lang.annotation.Annotation;
+import java.util.List;
 
 @Path("/job")
-public class JobResource extends Resource implements Resoursable<Job>{
+@Stateless
+public class JobResource {
 
+    @EJB
+    GenericBean<Job> genericBean;
+
+    /** Method processing HTTP GET requests, producing "text/plain" MIME media
+     * type.
+     * @return String that will be send back as a response of type "text/plain".
+     */
+    @GET
+    @Path("getIt")
+    @Produces("text/plain")
+    public String getIt() {
+
+        String str = " ok : ";
+        for (Annotation annotation :
+                Job.class.getAnnotations() ){
+
+            str+= annotation.toString();
+
+        }
+        return str;
+    }
+
+    @GET
+    public List<Job> findAll() {
+        return genericBean.findAll(Job.class);
+    }
 
     @GET
     @Path("{id}")
-    public Response get(@PathParam("id") long l) throws ResourceException {
-        return super.get(Job.class, l);
-
-    }
-
-    @GET
-    public Response fetch() {
-        return super.fetch(Job.class);
-    }
-
-    @POST
-    public Response insert(Job job) {
-        return super.create(job);
+    public Job find( @PathParam("id") long id) {
+        return genericBean.find(Job.class, id);
     }
 
     @PUT
     @Path("{id}")
-    public Response merge(Job job,@PathParam("id") long l) throws ResourceException {
-        return super.update(job, l);
+    public Job merge(Job job) {
+        return genericBean.merge(job);
     }
 
     @DELETE
     @Path("{id}")
-    public Response delete(@PathParam("id") long l) throws ResourceException {
-        return super.delete(Job.class, l);
+    public void remove(Job job) {
+        genericBean.remove(job);
     }
+
+    @POST
+    public void persist(Job job) {
+        genericBean.persist(job);
+    }
+
 }

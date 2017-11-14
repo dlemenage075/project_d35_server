@@ -11,7 +11,6 @@
     </properties>
     <!-- ADAPTER LES PROPRIETES SUIVANTES -->
 
-
     <distributionManagement>
 
             <repository>
@@ -19,7 +18,6 @@
                 <name>bintray-D35_project_d35_server</name>
                 <url>https://api.bintray.com/maven/jmallofre/project_d35_server/server_sources/;publish=1</url>
             </repository>
-
 
     </distributionManagement>
 
@@ -54,7 +52,7 @@
     <groupId>fr.univtln.project.d35.server</groupId>
     <artifactId>server</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <packaging>jar</packaging>
+    <packaging>war</packaging>
 
 
     <!-- ADAPTER les métadonnées -->
@@ -86,51 +84,17 @@
     <!-- ADAPTER les métadonnées -->
 
     <build>
+        <finalName>server</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.1</version>
                 <inherited>true</inherited>
                 <configuration>
                     <source>1.7</source>
                     <target>1.7</target>
                 </configuration>
             </plugin>
-
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-dependency-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>copy-dependencies</id>
-                        <phase>prepare-package</phase>
-                        <goals>
-                            <goal>copy-dependencies</goal>
-                        </goals>
-                        <configuration>
-                            <outputDirectory>${project.build.directory}/lib</outputDirectory>
-                            <overWriteReleases>false</overWriteReleases>
-                            <overWriteSnapshots>false</overWriteSnapshots>
-                            <overWriteIfNewer>true</overWriteIfNewer>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jar-plugin</artifactId>
-                <configuration>
-                    <archive>
-                        <manifest>
-                            <addClasspath>true</addClasspath>
-                            <classpathPrefix>lib/</classpathPrefix>
-                            <mainClass>fr.univtln.project.d35.server.App</mainClass>
-                        </manifest>
-                    </archive>
-                </configuration>
-            </plugin>
-
         </plugins>
     </build>
 
@@ -254,10 +218,28 @@
         </dependency>
 
         <!-- Map object to json -->
-        <dependency>
+        <!--<dependency>
             <groupId>org.glassfish.jersey.media</groupId>
             <artifactId>jersey-media-json-jackson</artifactId>
             <version>2.22.2</version>
+        </dependency>-->
+
+        <!-- EJB -->
+        <dependency>
+            <groupId>com.sun.jersey</groupId>
+            <artifactId>jersey-servlet</artifactId>
+            <version>${jersey-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.sun.jersey</groupId>
+            <artifactId>jersey-json</artifactId>
+            <version>${jersey-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish</groupId>
+            <artifactId>javax.ejb</artifactId>
+            <version>3.1</version>
+            <scope>provided</scope>
         </dependency>
 
         <!-- Bean validation -->

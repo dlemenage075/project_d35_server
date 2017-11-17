@@ -5,11 +5,14 @@ import fr.univtln.project.d35.server.entities.Job;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.ws.rs.*;
+import javax.ws.rs.core.MediaType;
 import java.lang.annotation.Annotation;
 import java.util.List;
 
 @Path("/job")
 @Stateless
+@Consumes(MediaType.APPLICATION_JSON)
+@Produces(MediaType.APPLICATION_JSON)
 public class JobResource {
 
     @EJB

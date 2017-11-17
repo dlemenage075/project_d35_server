@@ -6,14 +6,14 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
+import javax.ws.rs.core.MultivaluedMap;
 import java.util.List;
 
 @Path("/profile")
 @Stateless
+@Consumes(MediaType.APPLICATION_JSON)
+@Produces(MediaType.APPLICATION_JSON)
 public class ProfileResource {
-
-
 
     @EJB
     GenericBean<Profile> genericBean;
@@ -24,29 +24,14 @@ public class ProfileResource {
      */
     @GET
     @Path("getIt")
-    @Produces({"application/json"})
     public List<Profile> getIt() {
-        /*String str = "ok profile : ";
-
-        for (Profile profile :
-                genericBean.findAll(Profile.class)) {
-            str+=profile.toString();
-        }*/
-
         return genericBean.findAll(Profile.class);
-        //return str;
-        //return Response.status(Response.Status.OK).entity(genericBean.findAll(Profile.class)).type(MediaType.APPLICATION_JSON_TYPE).build();
     }
 
     @POST
-    @Produces("text/plain")
-    public String insert() {
-        Profile profile = new Profile();
-        profile.setName("Damien");
-        profile.setSurname("LEMÉNAGER");
-        profile.setAge(22);
-        genericBean.persist(profile);
-        return "ID : "+Long.toString(profile.getId());
+    @Path("create")
+    public Profile insert(Profile profile) {
+        return profile;
     }
 
     @GET
@@ -77,4 +62,5 @@ public class ProfileResource {
     public void persist(Profile profile) {
         genericBean.persist(profile);
     }
+
 }

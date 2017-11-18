@@ -75,8 +75,14 @@
         <jta-data-source>jdbc/postgres-pool</jta-data-source>
 
         <class>fr.univtln.project.d35.server.entities.Job</class>
-        <!--        <class>fr.univtln.project.d35.server.entities.Job</class>
-                <class>fr.univtln.project.d35.server.entities.Profile</class>-->
+        <class>fr.univtln.project.d35.server.entities.Profile</class>
+
+        <properties>
+            <!-- Les options de générations des tables -->
+            <property name="eclipselink.ddl-generation.output-mode" value="both"/>
+            <!--property name="eclipselink.ddl-generation" value="create-tables"/-->
+            <property name="eclipselink.ddl-generation" value="drop-and-create-tables"/>
+        </properties>
 
     </persistence-unit>
 

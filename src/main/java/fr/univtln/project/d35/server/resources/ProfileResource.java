@@ -18,6 +18,14 @@ public class ProfileResource {
     @EJB
     GenericBean<Profile> genericBean;
 
+    public ProfileResource() {
+    }
+
+    // Only for Unit test with Mockito
+    public ProfileResource(GenericBean genericBean) {
+        this.genericBean = genericBean;
+    }
+
     /** Method processing HTTP GET requests, producing "text/plain" MIME media
      * type.
      * @return String that will be send back as a response of type "text/plain".

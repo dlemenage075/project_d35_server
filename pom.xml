@@ -98,43 +98,6 @@
         </plugins>
     </build>
 
-    <!-- Ancien build du prof. On n'arrive pas à la faire fonctionner pour qu'il copie toutes les dependence -->
-    <!--<build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-shade-plugin</artifactId>
-                <configuration>
-                    <filters>
-                        <filter>
-                            <artifact>fr.univtln.bruno.test.helloworld:app</artifact>
-                            <includes>
-                                <include>**</include>
-                            </includes>
-                        </filter>
-                    </filters>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>1.7</source>
-                    <target>1.7</target>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>-->
-
-
     <dependencies>
 
 
@@ -144,47 +107,24 @@
             <artifactId>junit-platform-launcher</artifactId>
             <scope>test</scope>
         </dependency>
-
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-engine</artifactId>
             <scope>test</scope>
         </dependency>
-
         <dependency>
             <groupId>org.junit.vintage</groupId>
             <artifactId>junit-vintage-engine</artifactId>
             <scope>test</scope>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/org.mockito/mockito-core -->
+        <!-- Unit test with Mockito -->
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-core</artifactId>
             <version>2.9.0</version>
             <scope>test</scope>
         </dependency>
-
-        <!-- h2/jersey/jacksonspring/persistance-->
-        <!--<dependency>
-            <groupId>fr.jmallofre</groupId>
-            <artifactId>RestToolsKit</artifactId>
-            <version>1.0.2</version>
-
-        </dependency>
-
-            <exclusions>
-                <exclusion>
-                    <groupId>org.eclipse.persistence</groupId>
-                    <artifactId>eclipselink</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.projectlombok</groupId>
-                    <artifactId>lombok</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>-->
-
 
         <!-- Lombok - Getter/Setter -->
         <dependency>
@@ -263,19 +203,13 @@
             <version>2.2.4</version>
         </dependency>
 
-
-        <!-- https://mvnrepository.com/artifact/javax/javaee-api -->
+        <!-- JEE/EJB/JTA -->
         <dependency>
             <groupId>javax</groupId>
             <artifactId>javaee-api</artifactId>
             <version>7.0</version>
             <scope>provided</scope>
         </dependency>
-        <!--<dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-        </dependency>-->
-
 
     </dependencies>
 </project>

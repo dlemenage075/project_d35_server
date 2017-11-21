@@ -19,13 +19,18 @@ import static org.mockito.Mockito.when;
 public class JobTest {
 
     // List of 2 jobs : DEVELOPER and BAKER
-    List<Job> jobList0;
+    private List<Job> jobList0;
 
-    JobResource jobResource;
+    private JobResource jobResource;
 
+    private Job developerJob;
+    private Job bakerJob;
+
+    // Using mockito to fake a GenericBean
     @Mock
-    GenericBean genericBean;
+    private GenericBean<Job> genericBean;
 
+    // Tell mockito to fake all objects annotated by @Mock
     @Rule
     public MockitoRule rule = MockitoJUnit.rule();
 
@@ -33,12 +38,12 @@ public class JobTest {
     public void init() {
         jobResource = new JobResource(genericBean);
 
-        Job developerJob = new Job.JobBuilder()
+        developerJob = new Job.JobBuilder()
                 .setName(Job.NAME.DEVELOPER)
                 .setSalary(2500)
                 .build();
 
-        Job bakerJob = new Job.JobBuilder()
+        bakerJob = new Job.JobBuilder()
                 .setName(Job.NAME.BAKER)
                 .setSalary(3000)
                 .build();
@@ -53,6 +58,20 @@ public class JobTest {
         when(genericBean.findAll(Job.class)).thenReturn(jobList0);
         assertEquals("Must return a list of 2 jobs and use GenericBean",jobList0, jobResource.findAll());
         verify(genericBean).findAll(Job.class);
+    }
+
+    @Test
+    public void find() {
+        when(genericBean.find(Job.class, 0L)).thenReturn(developerJob);
+        assertEquals("Must return a job and use GenericBean",developerJob, jobResource.find(0L));
+        verify(genericBean).find(Job.class,0L);
+    }
+
+    @Test
+    public void merge() {
+        when(genericBean.merge(developerJob)).thenReturn(developerJob);
+        assertEquals("Must return a job and use GenericBean",developerJob, jobResource.merge(developerJob));
+        verify(genericBean).merge(developerJob);
     }
 
 }

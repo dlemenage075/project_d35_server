@@ -26,24 +26,7 @@ public class ProfileResource {
         this.genericBean = genericBean;
     }
 
-    /** Method processing HTTP GET requests, producing "text/plain" MIME media
-     * type.
-     * @return String that will be send back as a response of type "text/plain".
-     */
     @GET
-    @Path("getIt")
-    public List<Profile> getIt() {
-        return genericBean.findAll(Profile.class);
-    }
-
-    @POST
-    @Path("create")
-    public Profile insert(Profile profile) {
-        return profile;
-    }
-
-    @GET
-    @Path("all")
     public List<Profile> findAll() {
         return genericBean.findAll(Profile.class);
     }

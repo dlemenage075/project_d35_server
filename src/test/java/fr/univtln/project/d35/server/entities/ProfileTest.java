@@ -1,7 +1,6 @@
 package fr.univtln.project.d35.server.entities;
 
 import fr.univtln.project.d35.server.resources.GenericBean;
-import fr.univtln.project.d35.server.resources.JobResource;
 import fr.univtln.project.d35.server.resources.ProfileResource;
 import org.junit.Before;
 import org.junit.Rule;
@@ -20,25 +19,25 @@ import java.util.List;
 
 public class ProfileTest {
 
-    // List of 2 jobs : DEVELOPER and BAKER
-    List<Job> jobList0;
-
     // List of 2 profiles : profile0 and profile1
-    List<Profile> profileList0;
+    private List<Profile> profileList0;
 
     // Profile with 2 jobs
-    Profile profile0;
+    private Profile profile0;
 
     // Profile without jobs
-    Profile profile1;
+    private Profile profile1;
 
     //JobResource jobResource;
-    ProfileResource profileResource;
+    private ProfileResource profileResource;
 
+    // Using mockito to fake a GenericBean
     @Mock
-    GenericBean genericBean;
+    private GenericBean<Profile> genericBean;
 
-    @Rule public MockitoRule rule = MockitoJUnit.rule();
+    // Tell mockito to fake all objects annotated by @Mock
+    @Rule
+    public MockitoRule rule = MockitoJUnit.rule();
 
     @Before
     public void init() {
@@ -55,11 +54,12 @@ public class ProfileTest {
                 .setSalary(3000)
                 .build();
 
-        // Initialise Profile n°0
-        jobList0 = new ArrayList<>();
+        // List of 2 jobs : DEVELOPER and BAKER
+        List<Job> jobList0 = new ArrayList<>();
         jobList0.add(developerJob);
         jobList0.add(bakerJob);
 
+        // Initialise Profiles
         profile0 = new Profile.ProfileBuilder()
                 .setAge(22)
                 .setName("Damien")
@@ -87,8 +87,22 @@ public class ProfileTest {
     @Test
     public void findAll() {
         when(genericBean.findAll(Profile.class)).thenReturn(profileList0);
-        assertEquals("Must return a list of 2 profile and use GenericBean",profileList0, profileResource.findAll());
+        assertEquals("Must return a list of 2 profiles and use GenericBean",profileList0, profileResource.findAll());
         verify(genericBean).findAll(Profile.class);
+    }
+
+    @Test
+    public void find() {
+        when(genericBean.find(Profile.class, 0L)).thenReturn(profile0);
+        assertEquals("Must return a profile and use GenericBean",profile0, profileResource.find(0L));
+        verify(genericBean).find(Profile.class,0L);
+    }
+
+    @Test
+    public void merge() {
+        when(genericBean.merge(profile1)).thenReturn(profile1);
+        assertEquals("Must return a profile and use GenericBean",profile1, profileResource.merge(profile1));
+        verify(genericBean).merge(profile1);
     }
 
 }

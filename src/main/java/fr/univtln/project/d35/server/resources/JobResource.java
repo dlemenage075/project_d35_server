@@ -26,25 +26,6 @@ public class JobResource {
         this.genericBean = genericBean;
     }
 
-    /** Method processing HTTP GET requests, producing "text/plain" MIME media
-     * type.
-     * @return String that will be send back as a response of type "text/plain".
-     */
-    @GET
-    @Path("getIt")
-    @Produces("text/plain")
-    public String getIt() {
-
-        String str = " ok : ";
-        for (Annotation annotation :
-                Job.class.getAnnotations() ){
-
-            str+= annotation.toString();
-
-        }
-        return str;
-    }
-
     @GET
     public List<Job> findAll() {
         return genericBean.findAll(Job.class);

@@ -4,14 +4,11 @@ cache:
   directories:
   - "$HOME/.m2/repository"
   - "$HOME/.sonar/cache"
-
 before_install:
-#ignore gitflow commits except version tag
 - |
   if [[ "${TRAVIS_COMMIT_MESSAGE}" == "[gitflow]"* ]] && [[ "${TRAVIS_BRANCH}" != v[0-9]* ]]; then
     travis_terminate 0
   fi
-
 before_script:
 - cp .travis.settings.xml $HOME/.m2/settings.xml
 script:
@@ -36,13 +33,16 @@ after_success:
     ./.travis.scripts/mvn.sh -P github-site site  fi
 deploy:
   provider: script
-  script: "./.travis.scripts/mvn.sh -Dmaven.site.skip=true -P stage-devel-nexus deploy"
-  script: "./.travis.scripts/mvn.sh -Dmaven.site.skip=true -P stage-devel-bintray deploy"
+  script: "./.travis.scripts/mvn.sh -Dmaven.site.skip=true -P stage-devel-bintray
+    deploy"
   skip_cleanup: true
   on:
     all_branches: true
 branches:
-  except: # web site and version tag
+  except:
   - gh-pages
   - master
-#  - /^v[0-9]/
+env:
+  global:
+  - secure: FBswBAgOOMrcRBL9gzCfuXQJ+fZL/CpgUaR9/ktBkAYZrep8sMFlw3ETZBm7eP3RQ3Kfhsv72qrHYFcHeZ1Ca7aE0HEGN4sQjfgLtmYgtUbKh3ntNd5F7EgmJtNTHeYgoRdy/tx17tikwBpExDZa2k9nUFxSy/RdxIMrTYB8V4LPg73sDu3ydGeh89jTtfOd1taWFkF6BqkwygaIoeK+Onvbr3f50kHWiwsT2QBPPT2Clr/D4gDfgst4g2Rpahq4XoQVGcfkYiFLaxwbuRiCCFvpX04E1T1Dt7lW+fZl9FJ/WspvpKxZlQxxgnue6OJrE8o9G4K/vbheQLF28jkZ2NAgJJKHIRd2BzKXFxm48hHyk1qcsJ3Ki4lkWZJoO968QcfbLNmvPh3fR7jhMQdWiVJDlYnBpN9idegCkIRtMnA2iFcF2NZhtmrLdOBgQ/YyGisCLK83ZfuXiRxSNvjPtkvE+L89Gh0g+Ob1J+53ZpRewzuZ0aUmhRUSYrPkLBbvRKdcr1S1v+CWzim+Bb/QYoOhegfdIKlQkN9lH7zBzvLMk+qBLUwI92g11WNPVryDRNDiQ55ZZuQ3m8LyqINf8QwcNucly2GiPZsQzS+ZRHm3Hf4/mjw0awTfXAQBCkkoA8Ngz9mAUwYsaeHS8ymCzAIb9xdp8SHGa4ZSU3ati8Q=
+  - secure: C+nk4tg+k0qnnKijhGI6kBCM46nxeW6Rb/au8Fk3YUlJVG0NPbE1NexTNslo5bKJwCypcJ2kPbh0uz87awNI/eUxo54/aM8WThnf5siEkOOvxmursLz2YAK2ugvUSIU8s5u72J3vWSgaQIl03HHXvj9hgCt3zksz4oFNlGs+5a/rPJ6xgSVz3d0b+2BIHwkMOtwBqpwYsMA0OaRHYEb3ctPGNJKWlFEoA9Xa9tf5L9iVtMeZbuXCLqUBmi08CAdc1Km97617X6z/uPDa79KUKB6zPAu+/MR9sDSHHfPlZEtFv+skPttz8jhps6jzj12VvhCfPquyd1+1kFpkbdod+A2wGh6XEwPuNjsQ2eIbVpgTAeJSRNZetIJys2cTk6AbRFeegq66zdcpQHYKTgK+LlwPYouMXwd397TjmZ8IA75dD5FnJqKnE/TqpmdGdM2lcylqJ2/GRGWZA+HMc2npcE+kNGhP16DcG7iqw4t1aQVpCTu22V5Mk0nRKAKA6eSW3qr8PgAH4Fv8BRJqR1cWv01x5iFt3TSUzV4voQTJmeXeJ3fKjL2DSRgaleD6qWanh3JJzaQ4aEeR5rd9kIe2Thm6dFfyca41esw5S+6iHOjrOi77z8nIs5pQ4n6QrZJC6yjNyy/aSutjUrnbQ/5pZ+ZQuMCV7pOMKW1YXPp4dLw=

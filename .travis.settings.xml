@@ -4,34 +4,25 @@
 			      https://maven.apache.org/xsd/settings-1.0.0.xsd">
     <servers>
         <server>
-            <id>bintray-dptinfoutln-public</id>
-            <username>brunoe</username>
+            <id>bintray-jmallofre-project_d35_server</id>
+            <username>jmallofre</username>
             <password>${env.BINTRAY_API_KEY}</password>
         </server>
 
-        <server>
+        <!--server>
             <id>lsis-nexus</id>
-            <!-- ATTENTION UTILISER L'EMAIL UTLN -->
-            <username>${env.UTLN_EMAIL}</username>
+            <!- ATTENTION UTILISER L'EMAIL UTLN -->
+            <!--username>${env.UTLN_EMAIL}</username>
             <password>${env.UTLN_PASSWORD}</password>
-        </server>
+        </server-->
 
     </servers>
 
+
+
     <profiles>
+
         <profile>
-            <id>sonar</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
-            <properties>
-                <sonar.host.url>https://sonar.lsis.univ-tln.fr</sonar.host.url>
-                <!-- generate a token in https://sonar.lsis.univ-tln.fr/account/security -->
-                <sonar.login>${env.SONAR_TOKEN}</sonar.login>
-            </properties>
-        </profile>
-        <profile>
-            <id>bintray</id>
             <repositories>
                 <repository>
                     <snapshots>
@@ -52,10 +43,52 @@
                     <url>https://dl.bintray.com/dptinfoutln/public</url>
                 </pluginRepository>
             </pluginRepositories>
+            <id>bintray</id>
         </profile>
+
+        <profile>
+            <repositories>
+                <repository>
+                    <snapshots>
+                        <enabled>false</enabled>
+                    </snapshots>
+                    <id>bintray-jmallofre-project_d35_server</id>
+                    <name>bintray-jmallofre</name>
+                    <url>https://dl.bintray.com/jmallofre/project_d35_server</url>
+                </repository>
+            </repositories>
+            <pluginRepositories>
+                <pluginRepository>
+                    <snapshots>
+                        <enabled>false</enabled>
+                    </snapshots>
+                    <id>bintray-jmallofre-project_d35_server</id>
+                    <name>bintray-jmallofre</name>
+                    <url>https://dl.bintray.com/jmallofre/project_d35_server</url>
+                </pluginRepository>
+            </pluginRepositories>
+            <id>jcenter-bintray</id>
+        </profile>
+
+        <profile>
+            <id>sonar</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <sonar.host.url>
+                    https://sonar.lsis.univ-tln.fr
+                </sonar.host.url>
+                <!-- generate a token in https://sonar.lsis.univ-tln.fr/account/security -->
+                <sonar.login>${env.SONAR_TOKEN}</sonar.login>
+            </properties>
+        </profile>
+
     </profiles>
     <activeProfiles>
         <activeProfile>bintray</activeProfile>
+        <activeProfile>bintray-jmallofre</activeProfile>
+        <activeProfile>sonar</activeProfile>
     </activeProfiles>
 
 </settings>

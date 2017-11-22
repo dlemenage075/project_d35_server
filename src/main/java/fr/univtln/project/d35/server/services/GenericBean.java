@@ -1,5 +1,7 @@
 package fr.univtln.project.d35.server.services;
 
+import javax.ejb.Local;
+import javax.ejb.Remote;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -16,7 +18,7 @@ import java.util.Set;
 import java.util.logging.Logger;
 
 @Stateless
-public class GenericBean<T> {
+public class GenericBean<T> implements GenericBeanLocal<T>,GenericBeanRemote<T>{
 
     final Logger LOG = Logger.getLogger(GenericBean.class.getName());
 

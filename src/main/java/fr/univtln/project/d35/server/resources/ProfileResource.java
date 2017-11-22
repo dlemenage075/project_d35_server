@@ -2,9 +2,11 @@ package fr.univtln.project.d35.server.resources;
 
 import fr.univtln.project.d35.server.entities.Profile;
 import fr.univtln.project.d35.server.services.GenericBean;
+import fr.univtln.project.d35.server.services.GenericBeanLocal;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.MultivaluedMap;
@@ -17,7 +19,7 @@ import java.util.List;
 public class ProfileResource {
 
     @EJB
-    GenericBean<Profile> genericBean;
+    GenericBeanLocal<Profile> genericBean;
 
     public ProfileResource() {
     }

@@ -1,4 +1,4 @@
-package fr.univtln.project.d35.server.resources;
+package fr.univtln.project.d35.server.services;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;

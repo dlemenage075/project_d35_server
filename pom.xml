@@ -30,6 +30,15 @@
             <name>bintray</name>
             <url>https://dl.bintray.com/jmallofre</url>
         </repository>
+
+        <repository>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <id>bintray-dptinfoutln-public</id>
+            <name>bintray</name>
+            <url>https://dl.bintray.com/dptinfoutln/public</url>
+        </repository>
     </repositories>
     <pluginRepositories>
         <pluginRepository>
@@ -39,6 +48,15 @@
             <id>bintray-jmallofre</id>
             <name>bintray-plugins</name>
             <url>https://dl.bintray.com/jmallofre/project_d35_server</url>
+        </pluginRepository>
+
+        <pluginRepository>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <id>bintray-dptinfoutln-public</id>
+            <name>bintray-plugins</name>
+            <url>https://dl.bintray.com/dptinfoutln/public</url>
         </pluginRepository>
     </pluginRepositories>
 
@@ -56,7 +74,7 @@
 
 
     <!-- ADAPTER les métadonnées -->
-    <name>D35_Server</name>
+    <name>server</name>
     <description />
     <url>https://${github.account}.github.io/server/</url>
     <inceptionYear>2017</inceptionYear>

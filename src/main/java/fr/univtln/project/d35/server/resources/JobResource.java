@@ -1,6 +1,7 @@
 package fr.univtln.project.d35.server.resources;
 
 import fr.univtln.project.d35.server.entities.Job;
+import fr.univtln.project.d35.server.services.GenericBean;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -17,6 +18,7 @@ public class JobResource {
 
     @EJB
     GenericBean<Job> genericBean;
+
 
     public JobResource() {
     }

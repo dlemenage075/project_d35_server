@@ -1,6 +1,6 @@
 package fr.univtln.project.d35.server.entities;
 
-import fr.univtln.project.d35.server.resources.GenericBean;
+import fr.univtln.project.d35.server.services.GenericBean;
 import fr.univtln.project.d35.server.resources.JobResource;
 import org.junit.Before;
 import org.junit.Rule;

@@ -1,6 +1,7 @@
 package fr.univtln.project.d35.server.resources;
 
 import fr.univtln.project.d35.server.entities.Profile;
+import fr.univtln.project.d35.server.services.GenericBean;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -9,7 +10,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.MultivaluedMap;
 import java.util.List;
 
-@Path("/profile")
+@Path("/profiles")
 @Stateless
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)

@@ -18,7 +18,7 @@ import java.util.List;
 public class JobResource {
 
     @EJB
-    GenericBeanLocal<Job> genericBean;
+    GenericBean<Job> genericBean;
 
 
     public JobResource() {

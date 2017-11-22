@@ -4,6 +4,12 @@ package fr.univtln.project.d35.server.entities;
 import lombok.Data;
 
 
+import javax.annotation.ManagedBean;
+import javax.ejb.Stateless;
+import javax.enterprise.context.RequestScoped;
+import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
+import javax.inject.Named;
 import javax.persistence.*;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
@@ -17,9 +23,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 
+
 @Data @Entity
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
+@Stateless
+@Named("profile")
+@SessionScoped
 public class Profile implements Serializable {
 
     @Id
@@ -91,5 +101,7 @@ public class Profile implements Serializable {
         }
         return countTaxes;
     }
+
+
 
 }

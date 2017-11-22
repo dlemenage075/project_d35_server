@@ -77,6 +77,7 @@
         <class>fr.univtln.project.d35.server.entities.Job</class>
         <class>fr.univtln.project.d35.server.entities.Profile</class>
 
+
         <properties>
             <!-- Les options de générations des tables -->
             <property name="eclipselink.ddl-generation.output-mode" value="both"/>

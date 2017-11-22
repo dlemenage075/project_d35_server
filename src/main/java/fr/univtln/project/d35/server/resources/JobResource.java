@@ -9,7 +9,6 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
-import java.lang.annotation.Annotation;
 import java.util.List;
 
 @Path("/jobs")

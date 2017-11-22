@@ -69,7 +69,7 @@
     <!-- ADAPTER les coordonnées -->
     <groupId>fr.univtln.project.d35.server</groupId>
     <artifactId>server</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0-jmallofre-SNAPSHOT</version>
     <packaging>war</packaging>
 
 

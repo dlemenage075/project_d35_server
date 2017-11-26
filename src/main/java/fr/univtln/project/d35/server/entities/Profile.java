@@ -35,7 +35,7 @@ public class Profile implements Serializable {
     @Id
     @GeneratedValue
     @XmlElement
-    private int id;
+    private long id;
 
     @NotNull(message = "Name is empty") @Size(max = 50, message = "Name cannot be greater than 50 characters")
     @XmlElement

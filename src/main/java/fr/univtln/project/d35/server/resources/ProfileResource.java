@@ -47,7 +47,9 @@ public class ProfileResource {
     }
 
     @DELETE
-    public void remove(Profile profile) {
+    @Path("{id}")
+    public void remove( @PathParam("id") long id) {
+        Profile profile = genericBean.find(Profile.class, id);
         genericBean.remove(profile);
     }
 

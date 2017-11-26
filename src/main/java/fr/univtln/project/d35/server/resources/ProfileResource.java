@@ -53,8 +53,8 @@ public class ProfileResource {
     }
 
     @POST
-    public void persist(Profile profile) {
-        genericBean.persist(profile);
+    public Profile persist(Profile profile) {
+        return genericBean.persist(profile);
     }
 
 }

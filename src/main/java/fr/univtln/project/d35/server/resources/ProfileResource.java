@@ -2,27 +2,23 @@ package fr.univtln.project.d35.server.resources;
 
 import fr.univtln.project.d35.server.entities.Profile;
 import fr.univtln.project.d35.server.services.GenericBean;
-import fr.univtln.project.d35.server.services.GenericBeanLocal;
-import fr.univtln.project.d35.server.services.GenericBeanRemote;
+import lombok.NoArgsConstructor;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
-import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.util.List;
 
 @Path("/profiles")
 @Stateless
+@NoArgsConstructor
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 public class ProfileResource {
 
     @EJB
     GenericBean<Profile> genericBean;
-
-    public ProfileResource() {
-    }
 
     // Only for Unit test with Mockito
     public ProfileResource(GenericBean genericBean) {

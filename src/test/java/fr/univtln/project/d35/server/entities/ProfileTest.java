@@ -45,13 +45,13 @@ public class ProfileTest {
         profileResource = new ProfileResource(genericBean);
 
         Job developerJob = new Job.JobBuilder()
-                .setName(Job.NAME.DEVELOPER)
-                .setSalary(2500)
+                .name(Job.NAME.DEVELOPER)
+                .salary(2500)
                 .build();
 
         Job bakerJob = new Job.JobBuilder()
-                .setName(Job.NAME.BAKER)
-                .setSalary(3000)
+                .name(Job.NAME.BAKER)
+                .salary(3000)
                 .build();
 
         // List of 2 jobs : DEVELOPER and BAKER
@@ -61,16 +61,16 @@ public class ProfileTest {
 
         // Initialise Profiles
         profile0 = new Profile.ProfileBuilder()
-                .setAge(22)
-                .setName("Damien")
-                .setSurname("LEMÉNAGER")
-                .setJobs(jobList0)
+                .age(22)
+                .name("Damien")
+                .surname("LEMÉNAGER")
+                .jobs(jobList0)
                 .build();
 
         profile1 = new Profile.ProfileBuilder()
-                .setAge(30)
-                .setName("Pierrot")
-                .setSurname("DELEVEGA")
+                .age(30)
+                .name("Pierrot")
+                .surname("DELEVEGA")
                 .build();
 
         profileList0 = new ArrayList<>();

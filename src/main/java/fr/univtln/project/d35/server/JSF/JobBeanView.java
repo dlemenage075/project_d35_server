@@ -3,10 +3,7 @@ package fr.univtln.project.d35.server.JSF;
 import fr.univtln.project.d35.server.entities.Job;
 import lombok.Data;
 
-import javax.annotation.PostConstruct;
 import javax.ejb.Stateless;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
 import javax.inject.Named;
 import java.util.*;
@@ -20,6 +17,9 @@ import java.util.*;
 @Named("jobBean")
 public class JobBeanView {
 
+    /**
+     * Different job available
+     */
     public enum NAME {
         POLICEMAN,
         BAKER,
@@ -36,6 +36,10 @@ public class JobBeanView {
         return Job.NAME.values();
     }
 
+    /**
+     * List of checked jobs
+     * @return list of jobs
+     */
     public List<Job> getJobsChecked(){
         List<Job> myJobs=new ArrayList<>();
         for(Job.NAME nameJob:jobs){

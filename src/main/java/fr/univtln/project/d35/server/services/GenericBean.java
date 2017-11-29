@@ -1,7 +1,7 @@
 package fr.univtln.project.d35.server.services;
 
-import javax.ejb.Local;
-import javax.ejb.Remote;
+import lombok.extern.java.Log;
+
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -15,18 +15,22 @@ import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 import java.util.List;
 import java.util.Set;
-import java.util.logging.Logger;
 
 @Stateless
-public class GenericBean<T>{// implements GenericBeanLocal<T>,GenericBeanRemote<T>{
-
-    final Logger LOG = Logger.getLogger(GenericBean.class.getName());
+@Log
+public class GenericBean<T>{
 
     @PersistenceContext(unitName = "payara_postgres")
     EntityManager em;
 
+    /**
+     * Find all T class thank to his class name
+     * @param className Use to make dynamic query
+     * @return
+     */
     public List<T> findAll(Class className) {
 
+        // Create dynamically the query "SELECT * FROM T t"
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<T> cq = cb.createQuery(className);
         Root<T> rootEntry = cq.from(className);
@@ -41,39 +45,34 @@ public class GenericBean<T>{// implements GenericBeanLocal<T>,GenericBeanRemote<
     }
 
     public T persist(T t) {
-
-        final ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
-        final Validator validator = factory.getValidator();
-
-        Set<ConstraintViolation<T>> constraintViolations =
-                validator.validate( t );
-
-        for (ConstraintViolation<T> violation : constraintViolations) {
-            LOG.warning(violation.getMessage());
-        }
-
+        validate(t);
         this.em.persist(t);
-
         return t ;
     }
 
     public T merge(T t) {
-
-        final ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
-        final Validator validator = factory.getValidator();
-
-        Set<ConstraintViolation<T>> constraintViolations =
-                validator.validate( t );
-
-        for (ConstraintViolation<T> violation : constraintViolations) {
-            LOG.warning(violation.getMessage());
-        }
-
+        validate(t);
         return this.em.merge(t);
     }
 
     public void remove(T t) {
         this.em.remove(t);
+    }
+
+    public void validate(T t){
+
+        // Validator make sure the T class is correct before persisting it in DB
+        final ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+        final Validator validator = factory.getValidator();
+
+        Set<ConstraintViolation<T>> constraintViolations =
+                validator.validate( t );
+
+        // Show all violations of T class in log
+        for (ConstraintViolation<T> violation : constraintViolations) {
+            log.warning(violation.getMessage());
+        }
+
     }
 
 }

@@ -1,14 +1,10 @@
 package fr.univtln.project.d35.server.entities;
 
 
-import lombok.Data;
+import lombok.*;
 
-
-import javax.annotation.ManagedBean;
 import javax.ejb.Stateless;
-import javax.enterprise.context.RequestScoped;
 import javax.faces.bean.SessionScoped;
-import javax.faces.bean.ViewScoped;
 import javax.inject.Named;
 import javax.persistence.*;
 import javax.validation.constraints.Min;
@@ -24,74 +20,35 @@ import java.util.List;
 
 
 
-@Data @Entity
+@Entity
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
 @Stateless
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Named("profile")
+@Data
 @SessionScoped
 public class Profile implements Serializable {
 
     @Id
     @GeneratedValue
-    @XmlElement
     private long id;
 
     @NotNull(message = "Name is empty") @Size(max = 50, message = "Name cannot be greater than 50 characters")
-    @XmlElement
     private String name;
+
+    @Getter
     @NotNull(message = "Surname is empty") @Size(max = 70, message = "Surname cannot be greater than 70 characters")
-    @XmlElement
     private String surname;
 
     @OneToMany(cascade = CascadeType.PERSIST)
-    @XmlElement
+    @Builder.Default // Use to set default value of this field for @Builder
     private List<Job> jobs = new ArrayList<>();
 
     @Min(value = 0, message = "Your age need to be a positif number")
-    @XmlElement
     private int age;
-
-    public Profile() {
-    }
-
-    public Profile(ProfileBuilder profileBuilder) {
-        this.age = profileBuilder.age;
-        this.name = profileBuilder.name;
-        this.surname = profileBuilder.surname;
-        this.jobs = profileBuilder.jobs;
-    }
-
-    public static class ProfileBuilder {
-        private String name;
-        private String surname;
-        private int age;
-        private List<Job> jobs = new ArrayList<>();
-
-        public ProfileBuilder setName(String name) {
-            this.name = name;
-            return this;
-        }
-
-        public ProfileBuilder setSurname(String surname) {
-            this.surname = surname;
-            return this;
-        }
-
-        public ProfileBuilder setAge(int age) {
-            this.age = age;
-            return this;
-        }
-
-        public ProfileBuilder setJobs(List<Job> jobs) {
-            this.jobs = jobs;
-            return this;
-        }
-
-        public Profile build() {
-            return new Profile(this);
-        }
-    }
 
     public int getTaxes() {
         int countTaxes = 0;

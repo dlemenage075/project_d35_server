@@ -2,21 +2,13 @@ package fr.univtln.project.d35.server.JSF;
 
 import fr.univtln.project.d35.server.entities.Job;
 import fr.univtln.project.d35.server.entities.Profile;
-import fr.univtln.project.d35.server.resources.ProfileResource;
 import fr.univtln.project.d35.server.services.GenericBean;
 import lombok.Data;
 
-import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
-import javax.ejb.Stateful;
 import javax.ejb.Stateless;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
-import javax.faces.bean.ViewScoped;
-import javax.inject.Inject;
 import javax.inject.Named;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -37,7 +29,12 @@ public class ProfileBeanView {
    @EJB
    GenericBean<Profile> genericBean;
 
-
+    /**
+     * Persist the profile from JSF and return name file to
+     * redirect user
+     * @param jobs
+     * @return file name
+     */
     public String update(List<Job> jobs){
         Profile profile=new Profile();
         profile.setSurname(surname);

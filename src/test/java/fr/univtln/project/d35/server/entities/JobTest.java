@@ -39,13 +39,13 @@ public class JobTest {
         jobResource = new JobResource(genericBean);
 
         developerJob = new Job.JobBuilder()
-                .setName(Job.NAME.DEVELOPER)
-                .setSalary(2500)
+                .name(Job.NAME.DEVELOPER)
+                .salary(2500)
                 .build();
 
         bakerJob = new Job.JobBuilder()
-                .setName(Job.NAME.BAKER)
-                .setSalary(3000)
+                .name(Job.NAME.BAKER)
+                .salary(3000)
                 .build();
 
         jobList0 = new ArrayList<>();

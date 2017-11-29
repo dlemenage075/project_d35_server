@@ -9,7 +9,6 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
-import java.lang.annotation.Annotation;
 import java.util.List;
 
 @Path("/jobs")
@@ -19,14 +18,14 @@ import java.util.List;
 public class JobResource {
 
     @EJB
-    GenericBeanLocal<Job> genericBean;
+    GenericBean<Job> genericBean;
 
 
     public JobResource() {
     }
 
     // Only for Unit test with Mockito
-    public JobResource(GenericBean genericBean) {
+    public JobResource(GenericBean<Job> genericBean) {
         this.genericBean = genericBean;
     }
 

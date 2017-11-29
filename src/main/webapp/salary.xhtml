@@ -1,0 +1,31 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core"
+                template="/templates/mainTemplate.xhtml"
+>
+
+    <ui:define name="bodyContent">
+        <h:form id="formulaire">
+            <ui:repeat value="#{jobBean.job2}" var="job1">
+                <p:outputLabel>#{job1.name}</p:outputLabel>
+                <p:inputText id="salary"
+                             label="salary"
+                             value="#{job1.salary}"
+                             requiredMessage="Veuillez saisir un salaire"
+                             required="true"
+                             size="20"
+                             maxlength="60" >
+                    <f:ajax event="click" render="newMessageError4" />
+                    <f:validateLongRange minimum="0" />
+                </p:inputText>
+                <h:message id="newMessageError4" for="salary"/>
+                <br></br>
+            </ui:repeat>
+        <h:commandButton id="submit" value="Créer un profil" action="#{profileBean.update(jobBean.job2)}" />
+        </h:form>
+        <br></br>
+    </ui:define>
+
+</ui:composition>

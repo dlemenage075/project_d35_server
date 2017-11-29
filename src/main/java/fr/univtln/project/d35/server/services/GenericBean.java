@@ -18,7 +18,7 @@ import java.util.Set;
 import java.util.logging.Logger;
 
 @Stateless
-public class GenericBean<T> implements GenericBeanLocal<T>,GenericBeanRemote<T>{
+public class GenericBean<T>{// implements GenericBeanLocal<T>,GenericBeanRemote<T>{
 
     final Logger LOG = Logger.getLogger(GenericBean.class.getName());
 

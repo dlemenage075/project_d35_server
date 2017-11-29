@@ -1,6 +1,5 @@
 <html>
 <head>
-    <script src="index.js"></script>
 </head>
 <body>
 <h2>Jersey RESTful Web Application!</h2>

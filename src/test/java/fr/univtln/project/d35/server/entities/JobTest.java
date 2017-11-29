@@ -2,6 +2,7 @@ package fr.univtln.project.d35.server.entities;
 
 import fr.univtln.project.d35.server.services.GenericBean;
 import fr.univtln.project.d35.server.resources.JobResource;
+import fr.univtln.project.d35.server.services.GenericBeanLocal;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -28,7 +29,7 @@ public class JobTest {
 
     // Using mockito to fake a GenericBean
     @Mock
-    private GenericBean<Job> genericBean;
+    private GenericBean genericBean;
 
     // Tell mockito to fake all objects annotated by @Mock
     @Rule

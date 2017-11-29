@@ -3,13 +3,13 @@ package fr.univtln.project.d35.server.resources;
 import fr.univtln.project.d35.server.entities.Profile;
 import fr.univtln.project.d35.server.services.GenericBean;
 import fr.univtln.project.d35.server.services.GenericBeanLocal;
+import fr.univtln.project.d35.server.services.GenericBeanRemote;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.MultivaluedMap;
 import java.util.List;
 
 @Path("/profiles")
@@ -19,13 +19,13 @@ import java.util.List;
 public class ProfileResource {
 
     @EJB
-    GenericBeanLocal<Profile> genericBean;
+    GenericBean<Profile> genericBean;
 
     public ProfileResource() {
     }
 
     // Only for Unit test with Mockito
-    public ProfileResource(GenericBean genericBean) {
+    public ProfileResource(GenericBean<Profile> genericBean) {
         this.genericBean = genericBean;
     }
 

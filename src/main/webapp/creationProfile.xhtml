@@ -1,0 +1,69 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core"
+           Gestionnaire     template="/templates/mainTemplate.xhtml"
+>
+
+    <ui:define name="bodyContent">
+
+        <h:form id="formulaire">
+
+            <fieldset>
+                <legend>Créer un profil</legend>
+                <h:outputLabel for="surname">Nom :</h:outputLabel>
+                <p:inputText id="surname"
+                             label="surname"
+                             value="#{profileBean.surname}"
+                             requiredMessage="Veuillez saisir un nom"
+                             required="true"
+                             size="20"
+                             maxlength="60">
+                    <f:validateLength minimum="2" maximum="10" />
+                    <f:ajax event="click" render="newMessageError1" />
+                </p:inputText>
+                <h:message id="newMessageError1" for="surname"/>
+
+            </fieldset>
+            <fieldset>
+            <h:outputLabel for="name">Prénom :</h:outputLabel>
+            <p:inputText id="name"
+                         label="name"
+                         value="#{profileBean.name}"
+                         requiredMessage="Veuillez saisir un prénom"
+                         required="true"
+                         size="20"
+                         maxlength="60">
+                <f:validateLength minimum="2" maximum="10" />
+                <f:ajax event="click" render="newMessageError2" />
+            </p:inputText>
+            <h:message id="newMessageError2" for="name"/>
+            </fieldset>
+            <fieldset>
+                <h:outputLabel for="age">Age :</h:outputLabel>
+                <p:inputText id="age"
+                             label="age"
+                             value="#{profileBean.age}"
+                             requiredMessage="Veuillez saisir un âge"
+                             required="true"
+                             size="20"
+                             maxlength="60">
+                    <f:ajax event="click" render="newMessageError3" />
+                    <f:validateLongRange minimum="0" />
+                </p:inputText>
+                <h:message id="newMessageError3" for="age"/>
+            </fieldset>
+            <fieldset>
+                <h:selectManyCheckbox value="#{jobBean.jobs}" >
+                    <f:selectItems value="#{jobBean.getJobs()}" />
+                </h:selectManyCheckbox>
+            </fieldset>
+
+
+            <h:commandButton id="submit" value="Ajouter un salaire" action="#{jobBean.setJobsForSalary(jobBean.getJobsChecked())}" />
+        </h:form>
+
+    </ui:define>
+
+</ui:composition>

@@ -2,6 +2,7 @@ package fr.univtln.project.d35.server.entities;
 
 import fr.univtln.project.d35.server.services.GenericBean;
 import fr.univtln.project.d35.server.resources.ProfileResource;
+import fr.univtln.project.d35.server.services.GenericBeanLocal;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -33,7 +34,7 @@ public class ProfileTest {
 
     // Using mockito to fake a GenericBean
     @Mock
-    private GenericBean<Profile> genericBean;
+    private GenericBean genericBean;
 
     // Tell mockito to fake all objects annotated by @Mock
     @Rule

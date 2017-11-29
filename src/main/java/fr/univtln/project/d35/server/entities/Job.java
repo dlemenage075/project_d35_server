@@ -1,23 +1,32 @@
 package fr.univtln.project.d35.server.entities;
 
-
-
 import lombok.Data;
 
+
+import javax.ejb.EJB;
+import javax.ejb.Stateless;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
+import javax.inject.Named;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
+import java.util.Arrays;
 
 
-@Data @Entity
+
+@Data @Entity @Stateless
 @XmlRootElement
+@Named("job")
+@SessionScoped
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Job implements Serializable {
 
@@ -38,6 +47,12 @@ public class Job implements Serializable {
         POLICEMAN,
         BAKER,
         DEVELOPER
+    }
+
+
+    @Override
+    public String toString() {
+        return name.toString();
     }
 
     public Job() {

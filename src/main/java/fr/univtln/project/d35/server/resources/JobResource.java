@@ -48,7 +48,8 @@ public class JobResource {
 
     @DELETE
     @Path("{id}")
-    public void remove(Job job) {
+    public void remove( @PathParam("id") long id) {
+        Job job = genericBean.find(Job.class, id);
         genericBean.remove(job);
     }
 

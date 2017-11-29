@@ -33,7 +33,7 @@ public class Job implements Serializable {
     @Id
     @GeneratedValue
     @XmlElement
-    private int id;
+    private long id;
 
     @Min(value = 1, message = "Your salary need to be strictly greater than 0")
     @XmlElement

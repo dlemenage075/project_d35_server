@@ -40,7 +40,7 @@ public class GenericBean<T>{// implements GenericBeanLocal<T>,GenericBeanRemote<
         return this.em.find(tClass, id);
     }
 
-    public void persist(T t) {
+    public T persist(T t) {
 
         final ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
         final Validator validator = factory.getValidator();
@@ -53,6 +53,8 @@ public class GenericBean<T>{// implements GenericBeanLocal<T>,GenericBeanRemote<
         }
 
         this.em.persist(t);
+
+        return t ;
     }
 
     public T merge(T t) {
